@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-
-function ChatRoom({ roomId, username }) {
-  return (
-    <div>
-      <h2>Комната: {roomId}</h2>
-      <p>Пользователь: {username}</p>
-    </div>
-  );
-}
+import ChatRoom from "./components/ChatRoom";
 
 export default function App() {
-  const [roomId, setRoomId] = useState("4c851046-ef36-43f2-a7dd-005e97280237");
-  const [username, setUsername] = useState("alex");
+  const [roomId, setRoomId] = useState("default-room");
+  const [username, setUsername] = useState("user" + Math.floor(Math.random() * 1000));
   const [joined, setJoined] = useState(false);
 
   if (!joined) {

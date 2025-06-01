@@ -1,25 +1,19 @@
-import React from "react";
-
 export default function ChatInput({ input, setInput, onSend }) {
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+  function onKeyDown(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       onSend();
     }
-  };
+  }
 
   return (
-    <div style={{ marginTop: 8 }}>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Введите сообщение..."
-        style={{ width: "80%", padding: 8, fontSize: "1rem" }}
-      />
-      <button onClick={onSend} style={{ padding: "8px 12px", marginLeft: 8 }}>
-        Отправить
-      </button>
-    </div>
+    <textarea
+      rows={3}
+      value={input}
+      onChange={(e) => setInput(e.target.value)}
+      onKeyDown={onKeyDown}
+      style={{ width: "100%", padding: 8, resize: "none" }}
+      placeholder="Введите сообщение и нажмите Enter"
+    />
   );
 }

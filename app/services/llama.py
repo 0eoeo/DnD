@@ -19,7 +19,7 @@ async def ask_llama(room_id: str, user_message: str, username: str) -> str:
         response = await client.post(LLAMA_API_URL, json={
             "model": MODEL_NAME,
             "messages": chat_history[room_id],
-            "temperature": 0.8
+            "temperature": 0
         })
         response.raise_for_status()
         reply = response.json()["choices"][0]["message"]["content"]

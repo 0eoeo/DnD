@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import ChatInput from "./ChatInput";
 import ChatMessages from "./ChatMessages";
-import { sendMessageToLMStudio } from "../api/lmstudio";
 
 export default function ChatRoom({ roomId, username }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const ws = useRef(null);
-
-  // История сообщений для отправки в LM Studio
-  const lmMessages = useRef([{ role: "system", content: "You are a helpful assistant." }]);
 
   useEffect(() => {
     ws.current = new WebSocket(`ws://localhost:8000/ws/game/${roomId}/${username}`);
@@ -34,21 +30,8 @@ export default function ChatRoom({ roomId, username }) {
 
   async function handleSend() {
     if (input.trim() === "") return;
-
-    // Отправляем сообщение в WebSocket
     ws.current.send(input);
-    setMessages((prev) => [...prev, `${username}: ${input}`]);
-    lmMessages.current.push({ role: "user", content: input });
     setInput("");
-
-    try {
-      // Отправляем историю в LM Studio и ждем ответ
-      const aiResponse = await sendMessageToLMStudio(lmMessages.current);
-      lmMessages.current.push({ role: "assistant", content: aiResponse });
-      setMessages((prev) => [...prev, `🧙 LLaMA DM: ${aiResponse}`]);
-    } catch (err) {
-      setMessages((prev) => [...prev, `Ошибка LM Studio: ${err.message}`]);
-    }
   }
 
   return (

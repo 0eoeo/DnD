@@ -1,3 +1,4 @@
+import json
 from typing import Dict, List
 from fastapi import WebSocket
 from app.services.llama import ask_llama
@@ -25,6 +26,7 @@ class ChatRoomManager:
         if message.startswith("/"):  # командная логика позже
             return user_msg
 
-        # Получаем ответ от LLaMA
+        # Получаем ответ от LLaMA (уже текст)
         llama_response = await ask_llama(room_id, message, username)
+
         return f"{user_msg}\n🧙 LLaMA DM: {llama_response}"
