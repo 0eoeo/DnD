@@ -1,7 +1,7 @@
 import httpx
 
 LLAMA_API_URL = "http://127.0.0.1:11434/v1/chat/completions"
-MODEL_NAME = "llama3"  # Заменить на своё имя модели из LM Studio
+MODEL_NAME = "gemma-3-1b-it-qat"  # Заменить на своё имя модели из LM Studio
 
 # Опционально храним переписку
 chat_history = {}

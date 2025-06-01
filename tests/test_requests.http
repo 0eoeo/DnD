@@ -1,0 +1,28 @@
+# POST http://127.0.0.1:8000/api/v1/character
+# Content-Type: application/json
+
+# {
+#   "name": "Герой Тест",
+#   "class": "Воин",
+#   "level": 1,
+#   "race": "Человек"
+# }
+
+
+POST http://127.0.0.1:8000/api/v1/chat
+Content-Type: application/json
+
+{
+  "user_id": 123,
+  "message": "Привет! Как дела?"
+}
+
+
+# POST http://127.0.0.1:8000/api/v1/character/register
+# Content-Type: application/json
+
+# {
+#   "name": "Геральт",
+#   "class_name": "Ведьмак",
+#   "race": "Человек"
+# }

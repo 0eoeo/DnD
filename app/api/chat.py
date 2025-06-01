@@ -6,7 +6,7 @@ chat_manager = ChatRoomManager()
 
 @router.websocket("/ws/game/{room_id}/{username}")
 async def websocket_endpoint(websocket: WebSocket, room_id: str, username: str):
-    await websocket.accept() 
+    await websocket.accept()
     await chat_manager.connect(room_id, websocket, username)
     try:
         while True:
@@ -14,4 +14,4 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str, username: str):
             response = await chat_manager.handle_message(room_id, username, data)
             await chat_manager.broadcast(room_id, response)
     except WebSocketDisconnect:
-        await chat_manager.disconnect(room_id, websocket, username)
+        chat_manager.disconnect(room_id, websocket, username)

@@ -7,7 +7,6 @@ class ChatRoomManager:
         self.active_rooms: Dict[str, Dict[str, WebSocket]] = {}
 
     async def connect(self, room_id: str, websocket: WebSocket, username: str):
-        await websocket.accept()
         if room_id not in self.active_rooms:
             self.active_rooms[room_id] = {}
         self.active_rooms[room_id][username] = websocket
