@@ -7,13 +7,15 @@ export default function ChatInput({ input, setInput, onSend }) {
   }
 
   return (
-    <textarea
-      rows={3}
-      value={input}
-      onChange={(e) => setInput(e.target.value)}
-      onKeyDown={onKeyDown}
-      style={{ width: "100%", padding: 8, resize: "none" }}
-      placeholder="Введите сообщение и нажмите Enter"
-    />
+    <div style={{ marginTop: 10 }}>
+      <textarea
+        rows={3}
+        style={{ width: "100%", resize: "none" }}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={onKeyDown}
+      />
+      <button onClick={onSend} style={{ marginTop: 5 }}>Отправить</button>
+    </div>
   );
 }

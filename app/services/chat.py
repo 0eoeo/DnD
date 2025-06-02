@@ -3,7 +3,7 @@ from typing import Dict, List
 from fastapi import WebSocket
 from app.services.llama import ask_llama
 
-class ChatRoomManager:
+class ChatManager:
     def __init__(self):
         self.active_rooms: Dict[str, Dict[str, WebSocket]] = {}
 
@@ -21,12 +21,9 @@ class ChatRoomManager:
         for ws in self.active_rooms.get(room_id, {}).values():
             await ws.send_text(message)
 
-    async def handle_message(self, room_id: str, username: str, message: str) -> str:
-        user_msg = f"{username}: {message}"
-        if message.startswith("/"):  # командная логика позже
-            return user_msg
-
-        # Получаем ответ от LLaMA (уже текст)
-        llama_response = await ask_llama(room_id, message, username)
+    async def handle_message(self, room_id: str, username: str, message: str, db):
+        # Вызов ask_llama с передачей db
+        llama_response = await ask_llama(room_id, message, username, db)
+        return llama_response
 
         return f"{user_msg}\n🧙 LLaMA DM: {llama_response}"

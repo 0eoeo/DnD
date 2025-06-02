@@ -1,9 +1,9 @@
-from app.db.session import engine, Base
-from app.models import character
+from app.db.session import engine
+from app.models import user, character
 
-def init_db():
-    Base.metadata.create_all(bind=engine)
+def init():
+    user.Base.metadata.create_all(bind=engine)
+    character.Base.metadata.create_all(bind=engine)
 
 if __name__ == "__main__":
-    init_db()
-    print("База данных и таблицы созданы")
+    init()

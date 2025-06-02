@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.v1 import character, game
-from app.api import chat
+from app.api.v1 import character, game, chat
 
 app = FastAPI(title="LLaMA Dungeon Chat")
 
@@ -16,6 +15,4 @@ app.add_middleware(
 # REST endpoints
 app.include_router(character.router, prefix="/api/v1/character")
 app.include_router(game.router, prefix="/api/v1/game")
-
-# WebSocket endpoint (не REST, без префикса)
 app.include_router(chat.router)

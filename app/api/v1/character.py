@@ -1,12 +1,11 @@
-from fastapi import APIRouter, HTTPException
-from app.schemas.character import CharacterCreate, CharacterOut
-from app.services.character import create_character
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.schemas.user import UserCreate, UserOut
+from app.services.character import create_user_with_character
+from app.db.session import get_db
 
 router = APIRouter()
 
-@router.post("/register", response_model=CharacterOut)
-def register_character(data: CharacterCreate):
-    character = create_character(data)
-    if not character:
-        raise HTTPException(status_code=400, detail="Cannot create character")
-    return character
+@router.post("/register", response_model=UserOut)
+def register(user: UserCreate, db: Session = Depends(get_db)):
+    return create_user_with_character(db, user)
